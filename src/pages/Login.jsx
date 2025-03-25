@@ -9,11 +9,15 @@ function Login() {
   });
   const [error, setError] = useState('');
 
+  
   useEffect(() => {
-    // Check if user is already authenticated
     const current_user = JSON.parse(localStorage.getItem('current_user'));
     if (current_user) {
-      navigate('/dashboard');
+      if (current_user.is_admin) {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+      }
     }
   }, [navigate]);
 
@@ -23,35 +27,79 @@ function Login() {
       ...prev,
       [name]: value
     }));
-    // Clear error when user starts typing again
+    // fehler löschen, wenn der benutzer wieder tippt
     if (error) setError('');
   };
 
   const handle_submit = (e) => {
     e.preventDefault();
     
-    // Get users from localStorage
+    // benutzer aus localstorage holen
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     
-    // Find user by email
+    // benutzer anhand der e-mail finden
     const user = users.find(u => u.email === formData.email);
     
-    // Check if user exists and password matches
+    // überprüfen, ob benutzer existiert und passwort übereinstimmt
     if (user && user.password === formData.password) {
-      // Store current user (without password) in localStorage
+      // aktuellen benutzer (ohne passwort) im localstorage speichern
       const user_info = {
         id: user.id,
         first_name: user.first_name,
         last_name: user.last_name,
-        email: user.email
+        email: user.email,
+        is_admin: user.is_admin || false
       };
       
       localStorage.setItem('current_user', JSON.stringify(user_info));
-      navigate('/dashboard');
+      
+      // weiterleitung zur adminpage, falls benutzer admin ist, ansonsten zum dashboard
+      if (user.is_admin) {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+      }
     } else {
       setError('Invalid email or password');
     }
   };
+
+  // funktion, um einen admin zu erstellen, falls keiner existiert (für demozwecke)
+  const ensure_admin_exists = () => {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    
+    // prüfen, ob ein admin existiert
+    const admin_exists = users.some(user => user.is_admin);
+    
+    if (!admin_exists) {
+      // standard-admin-benutzer erstellen
+      const admin_user = {
+        id: Date.now().toString(),
+        first_name: 'Admin',
+        last_name: 'User',
+        email: 'admin@admin.com',
+        password: 'admin',
+        is_admin: true
+      };
+      
+      // alle vorhandenen admin-benutzer entfernen (um einen sauberen zustand zu gewährleisten)
+      const filtered_users = users.filter(user => user.email !== 'admin@admin.com');
+      
+      const updated_users = [...filtered_users, admin_user];
+      localStorage.setItem('users', JSON.stringify(updated_users));
+      
+      // admin-anmeldeinformationen automatisch ausfüllen (optional)
+      setFormData({
+        email: 'admin@admin.com',
+        password: 'admin'
+      });
+    }
+  };
+
+  // admin bei bedarf beim mounten der komponente erstellen
+  useEffect(() => {
+    ensure_admin_exists();
+  }, []);
 
   return (
     <div className="auth-container">

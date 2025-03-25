@@ -26,7 +26,7 @@ function Signup() {
       return;
     }
     
-    // Check if user already exists
+    // überprüfen, ob der benutzer bereits existiert
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const existing_user = users.find(user => user.email === formData.email);
     

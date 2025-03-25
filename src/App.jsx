@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
-import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
+import Admin from './pages/Admin'
+import Home from './pages/Home'
 
-// Protected route component
+// Protected route component for authenticated users
 const Protected_route = ({ children }) => {
   const current_user = JSON.parse(localStorage.getItem('current_user'));
   
@@ -17,13 +18,29 @@ const Protected_route = ({ children }) => {
   return children;
 };
 
+// Protected route component for admin users
+const Admin_route = ({ children }) => {
+  const current_user = JSON.parse(localStorage.getItem('current_user'));
+  
+  if (!current_user) {
+    // Redirect to login if not authenticated
+    return <Navigate to="/login" />;
+  }
+  
+  if (!current_user.is_admin) {
+    // Redirect to dashboard if authenticated but not admin
+    return <Navigate to="/dashboard" />;
+  }
+  
+  return children;
+};
+
 function App() {
   return (
     <Router>
       <div className="app-container">
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route 
@@ -32,6 +49,14 @@ function App() {
               <Protected_route>
                 <Dashboard />
               </Protected_route>
+            } 
+          />
+          <Route 
+            path="/admin" 
+            element={
+              <Admin_route>
+                <Admin />
+              </Admin_route>
             } 
           />
           {/* Catch all route - redirect to login */}

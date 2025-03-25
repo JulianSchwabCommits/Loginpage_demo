@@ -65,7 +65,7 @@ button:focus-visible {
   }
 }
 
-/* Auth styles */
+/* auth-stile */
 .error-message {
   color: #e74c3c;
   background-color: #fdecea;
@@ -76,7 +76,7 @@ button:focus-visible {
   font-size: 14px;
 }
 
-/* Dashboard styles */
+/* dashboard-stile */
 .loading {
   display: flex;
   justify-content: center;
@@ -97,7 +97,7 @@ button:focus-visible {
   color: #333;
 }
 
-/* Welcome banner styles */
+/* willkommen-banner-stile */
 .welcome-banner {
   background: linear-gradient(135deg, #0a0a0a 0%, #1e1e1e 100%);
   padding: 20px;
@@ -131,4 +131,309 @@ button:focus-visible {
   height: 3px;
   background: linear-gradient(90deg, #ffffff, #888888);
   border-radius: 3px;
+}
+
+/* admin-seiten-stile */
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.admin-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.admin-form-section,
+.users-list-section {
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: fit-content;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #333;
+}
+
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+  min-width: 600px;
+}
+
+.users-table th,
+.users-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+.users-table th {
+  background-color: #0a0a0a;
+  font-weight: 600;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 10px;
+}
+
+.action-button {
+  padding: 8px 12px;
+  margin: 0 5px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  min-width: 80px;
+}
+
+.edit-button {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.edit-button:hover {
+  background-color: #3a3a3a;
+}
+
+.delete-button {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.delete-button:hover {
+  background-color: #3a3a3a;
+}
+
+.no-users {
+  color: #888;
+  text-align: center;
+  padding: 20px;
+}
+
+@media (max-width: 1024px) {
+  .admin-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* dashboard-header-aktionen */
+.dashboard-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.admin-link {
+  display: inline-block;
+  background-color: #222;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.admin-link:hover {
+  background-color: #333;
+}
+
+/* admin-formular-stile */
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-form .form-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.admin-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.admin-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #333;
+  background-color: #0a0a0a;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* benutzerdefinierte checkbox-stile */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+  user-select: none;
+  padding-left: 35px;
+  position: relative;
+}
+
+.checkbox-group input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+
+.checkbox-group label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  background-color: #1a1a1a;
+  border: 2px solid #333;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.checkbox-group label:hover:before {
+  border-color: #444;
+  box-shadow: 0 0 0 2px rgba(100, 100, 100, 0.1);
+}
+
+
+.checkbox-group input:checked + label:before {
+  background-color: #1a1a1a;
+  border-color: #444;
+}
+
+.checkbox-group label:after {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 5px;
+  width: 6px;
+  height: 12px;
+  border: solid #cccccc;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.checkbox-group input:checked + label:after {
+  opacity: 1;
+}
+
+.admin-privileges-text {
+  background: linear-gradient(90deg, #cccccc, #ffffff);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 0;
+}
+
+.admin-button {
+  padding: 12px 20px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  min-width: 120px;
+}
+
+.submit-button {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.submit-button:hover {
+  background-color: #3a3a3a;
+}
+
+.cancel-button {
+  background-color: #444;
+  color: #fff;
+}
+
+.cancel-button:hover {
+  background-color: #555;
+}
+
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  background-color: #222;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.back-button::before {
+  content: '←';
+  margin-right: 8px;
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #333;
+}
+
+.back-button:hover::before {
+  transform: translateX(-4px);
 }

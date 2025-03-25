@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -14,10 +14,10 @@ function Dashboard() {
   ];
 
   useEffect(() => {
-    // Check if user is authenticated
+    // Überprüfen, ob der Benutzer authentifiziert ist
     const current_user = JSON.parse(localStorage.getItem('current_user'));
     if (!current_user) {
-      // Redirect to login if not authenticated
+      // Weiterleitung zur Anmeldeseite, wenn nicht authentifiziert
       navigate('/login');
       return;
     }
@@ -30,7 +30,7 @@ function Dashboard() {
     navigate('/login');
   };
 
-  // Return loading state if user data isn't loaded yet
+  // Rückgabe des Ladezustands, wenn die Benutzerdaten noch nicht geladen sind
   if (!user) {
     return <div className="loading">Loading...</div>;
   }
@@ -39,7 +39,12 @@ function Dashboard() {
     <div className="dashboard-container">
       <header className="dashboard-header">
         <h1>FJ Bank Dashboard</h1>
-        <button onClick={handle_logout} className="logout-button">Logout</button>
+        <div className="dashboard-actions">
+          {user.is_admin && (
+            <Link to="/admin" className="admin-link">Admin Panel</Link>
+          )}
+          <button onClick={handle_logout} className="logout-button">Logout</button>
+        </div>
       </header>
 
       <div className="welcome-banner">
