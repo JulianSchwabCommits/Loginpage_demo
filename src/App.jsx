@@ -6,32 +6,31 @@ import Dashboard from './pages/Dashboard'
 import Admin from './pages/Admin'
 import Home from './pages/Home'
 
-// Protected route component for authenticated users
+// gschützti route komponente für authentifizierte benutzer
 const Protected_route = ({ children }) => {
   const current_user = JSON.parse(localStorage.getItem('current_user'));
   
   if (!current_user) {
-    // Redirect to login if not authenticated
+    // witerleite zu login wänn nit authentifiziert
     return <Navigate to="/login" />;
   }
   
   return children;
 };
 
-// Protected route component for admin users
+// gschützti route komponente für admin benutzer
 const Admin_route = ({ children }) => {
   const current_user = JSON.parse(localStorage.getItem('current_user'));
   
   if (!current_user) {
-    // Redirect to login if not authenticated
+    // witerleite zu login wänn nit authentifiziert
     return <Navigate to="/login" />;
   }
   
   if (!current_user.is_admin) {
-    // Redirect to dashboard if authenticated but not admin
+    // witerleite zum dashboard wänn authentifiziert aber nit admin
     return <Navigate to="/dashboard" />;
   }
-  
   return children;
 };
 
@@ -40,7 +39,7 @@ function App() {
     <Router>
       <div className="app-container">
         <Routes>
-          <Route path="/" element={<Home />} />
+
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route 
@@ -59,7 +58,7 @@ function App() {
               </Admin_route>
             } 
           />
-          {/* Catch all route - redirect to login */}
+          {/* catch all route - witerleite zu login */}
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </div>
